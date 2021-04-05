@@ -1,0 +1,62 @@
+@import "./variables";
+
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: $container-color;
+    box-shadow: 0 1px 0 rgba(22, 8, 43, 0.1);
+    padding: 0 1rem;
+    z-index: $z-fixed;
+
+    &__container {
+        display: flex;
+        align-items: center;
+        height: $header-height;
+        justify-content: space-between;
+
+        &__img {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+
+            &__logo {
+                color: $title-color;
+                font-weight: $font-medium;
+                display: none;
+
+                &__search {
+                    display: flex;
+                    padding: 0.4rem 0.75rem;
+                    background-color: $first-color-light;
+                    border-radius: 0.25rem;
+
+                    &__input {
+                        width: 100%;
+                        border: none;
+                        outline: none;
+                        background-color: $first-color-light;
+
+                        &::placeholder {
+                            font-family: $body-font;
+                            color: $text-color;
+                        }
+
+
+                        &__icon,
+                        &__toggle {
+                            font-size: 1.2rem;
+
+
+                            &__toggle {
+                                color: $title-color;
+                                cursor: pointer;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
