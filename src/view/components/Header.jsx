@@ -1,5 +1,5 @@
 import Nav from "./Nav.jsx";
-import React from 'react';
+import React from "react";
 import { fade, makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -81,7 +81,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Header = () => {
-
     const classes = useStyles();
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -177,7 +176,7 @@ const Header = () => {
                             <MenuIcon />
                         </IconButton>
                         <Typography className={classes.title} variant="h6" noWrap>
-                            Material-UI
+                            LOG BOOK
             </Typography>
                         <div className={classes.search}>
                             <div className={classes.searchIcon}>
@@ -231,8 +230,7 @@ const Header = () => {
                         </div>
                     </Toolbar>
                 </AppBar>
-                {renderMobileMenu}
-                {renderMenu}
+
             </div>
             <Nav />
         </header>
