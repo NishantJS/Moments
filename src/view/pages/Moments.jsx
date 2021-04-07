@@ -1,5 +1,9 @@
-const Moments = (props) => {
-  return <div>Moments</div>;
+const Moments = () => {
+  return (
+    <>
+      Moments
+    </>
+  );
 };
 
 export default Moments;
