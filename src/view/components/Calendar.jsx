@@ -1,14 +1,8 @@
-
 import React, { useState } from 'react';
-import Calendar from 'react-calendar';
+import Calender from 'react-calendar';
 
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import './Calendar.css';
-
-
-
-
-
 
 
 const Calendar = () => {
@@ -17,7 +11,7 @@ const Calendar = () => {
   <div>
     
     
-    <Calendar onChange={onChange} value={value} />
+    <Calender onChange={onChange} value={value} />
   </div>
   
    );

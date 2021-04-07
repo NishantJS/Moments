@@ -1,8 +1,8 @@
-import React from "react";
-
-const Login = () => {
+const Login = (props) => {
   return (
-    <h1>Login</h1>
+    <section >
+      <h1>Login</h1>
+    </section>
     );
 };
 

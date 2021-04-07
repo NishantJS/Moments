@@ -1,0 +1,4 @@
+.container_styles{
+  height: calc(100vh - var(--bottom-nav-height) - var(--top-nav-height));
+  overflow: hidden;
+}

@@ -1,9 +1,9 @@
-import React from 'react'
+import { CircularProgress } from '@material-ui/core';
 
 const Loading = () => {
   return (
-    <h1>loading</h1>
-  )
+    <CircularProgress variant="indeterminate"/>
+  );
 }
 
 export default Loading

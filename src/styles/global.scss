@@ -1,0 +1,10 @@
+*,*::after,*::before{
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+:root{
+  --top-nav-height: 58px;
+  --bottom-nav-height: 50px;
+}
