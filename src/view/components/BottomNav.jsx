@@ -11,7 +11,6 @@ const BottomNav = () => {
 
   const [selected,setSelected] = useState(0);
   function setLocation(currentIndex) {
-    // setSelected(currentIndex)
     switch (currentIndex) {
       case 0:
         history.push("/create");
