@@ -1,6 +1,10 @@
+import '../../styles/notfound.scss'
+
 const NotFound = () => {
   return (
-    <h1>ERROR 404</h1>
+    <div className="notfound">
+      <p>ERROR 404!</p>
+    </div>
   )
 }
 

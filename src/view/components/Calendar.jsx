@@ -1,20 +1,20 @@
 import React, { useState } from 'react';
 import Calender from 'react-calendar';
 
-import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
-import './Calendar.css';
+
+import '../../styles/Calendar.scss';
 
 
 const Calendar = () => {
   const [value, onChange] = useState(new Date());
-  return ( 
-  <div>
-    
-    
-    <Calender onChange={onChange} value={value} />
-  </div>
-  
-   );
+  return (
+    <div style={{ margin: 4 }}>
+
+
+      <Calender onChange={onChange} value={value} />
+    </div>
+
+  );
 }
- 
+
 export default Calendar;
