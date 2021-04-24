@@ -7,12 +7,11 @@ const Moments = lazy(() => import("./Moments.jsx"));
 const Options = lazy(() => import("./Options.jsx"));
 const Login = lazy(() => import("../components/Login.jsx"));
 
-
 const routes = () => {
   return (
     <Suspense fallback={<Loading />}>
       <Switch>
-        <Route exact path="/" component={Create} />
+        <Route exact path="/" component={Moments} />
         <Route exact path="/create" component={Create} />
         <Route exact path="/moments" component={Moments} />
         <Route exact path="/options" component={Options} />

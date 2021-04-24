@@ -9,7 +9,8 @@ import {useHistory} from "react-router-dom";
 const BottomNav = () => {
   let history = useHistory();
 
-  const [selected,setSelected] = useState(0);
+  const [selected,setSelected] = useState(1);
+  
   function setLocation(currentIndex) {
     switch (currentIndex) {
       case 0:

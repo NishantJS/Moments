@@ -12,7 +12,8 @@ const App = () => {
     <Router>
           <Grid container direction="column">
               <TopNav/>
-              <main className="container_styles">
+              <main className="container_styles"
+              style={{overflowY: "auto"}}>
                     <Routes/>
                 </main>
               <BottomNav/>
