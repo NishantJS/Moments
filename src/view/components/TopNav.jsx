@@ -1,4 +1,4 @@
-import { Toolbar,AppBar,Avatar } from "@material-ui/core";
+import { Toolbar, AppBar, Avatar } from "@material-ui/core";
 
 const TopNav = () => {
   return (
