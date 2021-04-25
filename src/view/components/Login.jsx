@@ -1,11 +1,11 @@
+import { signInWithGoogle } from "../pages/firebase.js";
 
-
-const Login = (props) => {
+const Login = () => {
   return (
-    <section >
-      <h1>Login</h1>
+    <section>
+      <h1 onClick={signInWithGoogle}>Login</h1>
     </section>
-    );
+  );
 };
 
 export default Login;
