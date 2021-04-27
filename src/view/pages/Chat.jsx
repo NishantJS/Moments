@@ -1,19 +1,24 @@
-import { useAuthState } from 'react-firebase-hooks/auth';
-import { auth } from "./firebase.js";
-import ChatContainer from "../components/ChatContainer.jsx";
+import { useAuthHook } from "./firebase.js";
+import ChatBox from "../components/ChatBox.jsx";
 import Login from "../components/Login.jsx";
 import Loading from "../components/Loading.jsx";
 
 const Chat = () => {
-  const [user, loading] = useAuthState(auth);
+  const [user, loading, error] = useAuthHook();
 
-  const toRender = loading ? <Loading /> : user ? <ChatContainer user={user}/> : <Login />;
+  const toRender = loading ? (
+    <Loading />
+  ) : error || !user ? (
+    <Login />
+  ) : (
+    <ChatBox user={user}/>
+  );
   
   return (
-  <>
-    {toRender}
-  </>
-  )
+    <>
+      {toRender}
+    </>
+  );
 }
 
 export default Chat;

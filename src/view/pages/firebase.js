@@ -1,5 +1,6 @@
 import firebase from "firebase/app";
 import "firebase/auth";
+import { useAuthState } from "react-firebase-hooks/auth";
 
 const app=firebase.initializeApp({
   apiKey: process.env.REACT_APP_API_KEY,
@@ -12,6 +13,13 @@ const app=firebase.initializeApp({
 });
 
 export const auth = app.auth();
+
+export const useAuthHook = () => {
+  const [user,loading, error] = useAuthState(auth);
+  return [user, loading, error];
+};
+
+
 const googleProvider = new firebase.auth.GoogleAuthProvider();
 
 export const signInWithGoogle = () => {
@@ -20,4 +28,5 @@ export const signInWithGoogle = () => {
   }).catch((error) => {
     console.log(error.message)
   })
-}
+};
+
