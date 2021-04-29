@@ -5,26 +5,61 @@ import {
   MessageInput,
   Avatar,
   ConversationHeader,
-  VoiceCallButton,
-  VideoCallButton,
-  EllipsisButton,
   MessageSeparator,
 } from "@chatscope/chat-ui-kit-react";
-import { useState } from "react";
+import { useState, useRef } from "react";
+import { firestore, useAuthHook, serverStore } from "../pages/firebase.js";
+import { useDocumentData } from "react-firebase-hooks/firestore";
 
-const Chats = ({ user }) => {
+const Chats = ({ email, displayName, photoURL, updateChatScreen }) => {
   const [messageInputValue, setMessageInputValue] = useState("");
+  const [username] = email.split("@");
+  const [firstname, lastname] = displayName.split(" ");
+  const [user] = useAuthHook();
+
+  const getInitials = () => {
+    let initials = "";
+    let [first] = firstname.split("");
+    if (lastname) {
+      let [last] = lastname.split("");
+      initials = first + last;
+    } else {
+      initials = first;
+    }
+    return initials;
+  };
+
+  let [me] = user.email.split("@");
+  const messageRef = firestore
+    .collection("chats")
+    .doc([me, username].sort().join(""));
+
+  // const query = messageRef?.orderBy("createAt").limit(25);
+  
+  // const [messages] = useDocumentData(query,{
+    // idField: [me, username].sort().join(""),
+  // });
+  
+  
+  // console.log({ messages , messageRef});
+
+  const sendMessage = async (value) => {
+    await messageRef.add({
+      text: value,
+      createAt: serverStore.serverTimestamp(),
+      user: me
+    });
+  
+    setMessageInputValue("")
+  }
 
   return (
     <ChatContainer>
       <ConversationHeader>
-        <ConversationHeader.Back />
-        <Avatar src={user.photoURL} name="Nishant" />
-        <ConversationHeader.Content userName="Nishant" info="Online" />
+        <ConversationHeader.Back onClick={updateChatScreen}/>
+        <Avatar src={photoURL} name={getInitials()} />
+        <ConversationHeader.Content userName={displayName} info={`@${username}`} />
         <ConversationHeader.Actions>
-          <VoiceCallButton />
-          <VideoCallButton />
-          <EllipsisButton orientation="vertical" />
         </ConversationHeader.Actions>
       </ConversationHeader>
       <MessageList>
@@ -38,7 +73,7 @@ const Chats = ({ user }) => {
             position: "single",
           }}
         >
-          <Avatar src={user.photoURL} name="Nishant" />
+          <Avatar src={photoURL} name={getInitials()} />
         </Message>
         <Message
           model={{
@@ -54,7 +89,8 @@ const Chats = ({ user }) => {
       <MessageInput
         placeholder="Type message here"
         value={messageInputValue}
-        onChange={(val) => setMessageInputValue(val)}
+        onChange={(value) => setMessageInputValue(value)}
+        onSend={(value)=>sendMessage(value)}
       />
     </ChatContainer>
   );

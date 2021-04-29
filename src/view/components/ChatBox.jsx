@@ -1,4 +1,5 @@
 import styles from "@chatscope/chat-ui-kit-styles/dist/default/styles.min.css";
+import { useState } from "react";
 import {MainContainer} from "@chatscope/chat-ui-kit-react";
 import Chats from "./Chats.jsx";
 import Fab from "@material-ui/core/Fab";
@@ -7,11 +8,26 @@ import Add from "@material-ui/icons/Add.js";
 import ChatList from "./ChatList.jsx";
 
 const ChatBox = ({ user }) => {
-  
-  const { email, uid, displayName, photoURL } = user;
-  
-  const userData = { email, uid, displayName, photoURL };
-  
+  const { email, displayName, photoURL } = user;
+  const [chatScreen, setChatScreen] = useState({isActive: false, email: false, displayName: false, photoURL: false});
+
+  const updateChatScreen = ({ email = false, displayName = false, photoURL = false }) => {
+    if (email && photoURL && displayName) {
+      setChatScreen({ isActive: true, email, displayName, photoURL });
+    } else {
+      setChatScreen({isActive: false, email : false, displayName : false, photoURL : false })
+    }
+  }
+
+  const props = { email, displayName, photoURL, updateChatScreen};
+
+  const toRender =
+    chatScreen.isActive && email && displayName ? (
+      <Chats email={chatScreen.email} displayName={chatScreen.displayName} photoURL={chatScreen.photoURL} updateChatScreen={updateChatScreen}/>
+    ) : (
+      <ChatList {...props} />
+    );
+
   return (
     <div
       style={{
@@ -19,8 +35,7 @@ const ChatBox = ({ user }) => {
       }}
     >
       <MainContainer>
-        <ChatList user={userData}/>
-        {/* <Chats user={userData}/> */}
+        {toRender}
         <Zoom in={true} timeout={{ enter: 500, exit: 500 }} style={{position: "absolute", bottom: "10px", right: "10px"}}>
           <Fab
             size="medium"
