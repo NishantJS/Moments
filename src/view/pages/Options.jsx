@@ -1,6 +1,6 @@
 import { useState } from "react";
 // import firebase from "firebase/app";
-import { signInWithGoogle } from "./firebase.js";
+import { signInWithGoogle } from "../services/firebase.js";
 // import "firebase/auth";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";

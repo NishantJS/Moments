@@ -8,12 +8,11 @@ import {
   MessageSeparator,
 } from "@chatscope/chat-ui-kit-react";
 import { useState, useRef } from "react";
-import { firestore, useAuthHook, serverStore } from "../pages/firebase.js";
-import { useDocumentData } from "react-firebase-hooks/firestore";
+import { firestore, useAuthHook, serverStore, useCollections } from "../services/firebase.js";
 
 const Chats = ({ email, displayName, photoURL, updateChatScreen }) => {
   const [messageInputValue, setMessageInputValue] = useState("");
-  const [username] = email.split("@");
+  const [username,] = email.split("@");
   const [firstname, lastname] = displayName.split(" ");
   const [user] = useAuthHook();
 
@@ -29,20 +28,21 @@ const Chats = ({ email, displayName, photoURL, updateChatScreen }) => {
     return initials;
   };
 
-  let [me] = user.email.split("@");
-  const messageRef = firestore
-    .collection("chats")
-    .doc([me, username].sort().join(""));
-
-  // const query = messageRef?.orderBy("createAt").limit(25);
+  let [me,] = user.email.split("@");
+  let docName = [me, username].sort().join("");
+  const messageRef = firestore.collection(`user/messages/${docName}`);
+  // const query=messageRef
+  //   .collection([me, username].sort().join(""))
+  //   .orderBy("createAt")
+  //   .limit(25);
   
-  // const [messages] = useDocumentData(query,{
-    // idField: [me, username].sort().join(""),
+  // const [
+  //   messages
+  // ] = useDocumentData( {
+  //   idField: `chats/${[me, username].sort().join("")}`,
   // });
   
-  
-  // console.log({ messages , messageRef});
-
+  console.log({ pp: useCollections(`user/messages/${docName}`) });
   const sendMessage = async (value) => {
     await messageRef.add({
       text: value,

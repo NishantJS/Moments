@@ -1,4 +1,4 @@
-import { signInWithGoogle } from "../pages/firebase.js";
+import { signInWithGoogle } from "../services/firebase.js";
 
 const Login = () => {
   return (

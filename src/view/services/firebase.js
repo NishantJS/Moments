@@ -2,6 +2,7 @@ import firebase from "firebase/app";
 import "firebase/firestore"
 import "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { useCollectionData } from "react-firebase-hooks/firestore";
 
 const app=firebase.initializeApp({
   apiKey: process.env.REACT_APP_API_KEY,
@@ -32,3 +33,9 @@ export const signInWithGoogle = () => {
   })
 };
 
+
+export const useCollections = collectionName => useCollectionData(
+  firebase.firestore().collection(collectionName),{
+    snapshotListenOptions: { includeMetadataChanges: true }
+  }
+);

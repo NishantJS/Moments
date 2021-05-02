@@ -1,4 +1,4 @@
-import { useAuthHook } from "./firebase.js";
+import { useAuthHook } from "../services/firebase.js";
 import ChatBox from "../components/ChatBox.jsx";
 import Login from "../components/Login.jsx";
 import Loading from "../components/Loading.jsx";
