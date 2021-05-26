@@ -2,16 +2,13 @@ import {
   ChatContainer,
   MessageList,
   Message,
-  MessageInput,
   Avatar,
-  ConversationHeader,
-  MessageSeparator,
+  ConversationHeader
 } from "@chatscope/chat-ui-kit-react";
-import { useState, useRef } from "react";
-import { firestore, useAuthHook, serverStore, useCollections } from "../services/firebase.js";
+import { firestore, useAuthHook, useCollections } from "../services/firebase.js";
+import InputMessage from "./InputMessage.jsx";
 
 const Chats = ({ email, displayName, photoURL, updateChatScreen }) => {
-  const [messageInputValue, setMessageInputValue] = useState("");
   const [username,] = email.split("@");
   const [firstname, lastname] = displayName.split(" ");
   const [user] = useAuthHook();
@@ -29,71 +26,81 @@ const Chats = ({ email, displayName, photoURL, updateChatScreen }) => {
   };
 
   let [me,] = user.email.split("@");
-  let docName = [me, username].sort().join("");
-  const messageRef = firestore.collection(`user/messages/${docName}`);
-  // const query=messageRef
-  //   .collection([me, username].sort().join(""))
-  //   .orderBy("createAt")
-  //   .limit(25);
+
+  let docName = ["user","messages",[me, username].sort().join("")].join("/");
   
-  // const [
-  //   messages
-  // ] = useDocumentData( {
-  //   idField: `chats/${[me, username].sort().join("")}`,
-  // });
-  
-  console.log({ pp: useCollections(`user/messages/${docName}`) });
-  const sendMessage = async (value) => {
-    await messageRef.add({
-      text: value,
-      createAt: serverStore.serverTimestamp(),
-      user: me
-    });
-  
-    setMessageInputValue("")
+  const messageRef = firestore.collection(docName);
+
+  const query = messageRef.orderBy("createAt")
+    .limit(10);
+
+  const [messages] = useCollections(docName, query);
+    
+  const getMessageTime = (date, index) => {
+    const [day, time] = date.toLocaleString().split(", ");
+    
+    if (messages && messages.length>1) {
+    
+      if (index >= 1) {
+        let prevDate = messages[index - 1].createAt.toDate().toLocaleDateString();
+
+        if (day === prevDate) return `${time}`
+        else {
+          if (day === new Date().toLocaleDateString()) {
+            if (time !== new Date().toLocaleTimeString()) {
+              return `today ${time}`;
+            } else {
+              return `just now`;
+            }
+          }
+            else return `${day} ${time}`;
+        }
+      }
+    }
+    return `${day} ${time}`;
   }
 
   return (
     <ChatContainer>
       <ConversationHeader>
-        <ConversationHeader.Back onClick={updateChatScreen}/>
+        <ConversationHeader.Back onClick={updateChatScreen} />
         <Avatar src={photoURL} name={getInitials()} />
-        <ConversationHeader.Content userName={displayName} info={`@${username}`} />
-        <ConversationHeader.Actions>
-        </ConversationHeader.Actions>
-      </ConversationHeader>
-      <MessageList>
-        <MessageSeparator content={new Date().toLocaleDateString()} />
-        <Message
-          model={{
-            message: "Hello",
-            sentTime: "15 mins ago",
-            sender: "Me",
-            direction: "incoming",
-            position: "single",
-          }}
-        >
-          <Avatar src={photoURL} name={getInitials()} />
-        </Message>
-        <Message
-          model={{
-            message: "Hello Nishant",
-            sentTime: "15 mins ago",
-            sender: "Me",
-            direction: "outgoing",
-            position: "single",
-          }}
-          avatarSpacer
+        <ConversationHeader.Content
+          userName={displayName}
+          info={`@${username}`}
         />
+        <ConversationHeader.Actions></ConversationHeader.Actions>
+      </ConversationHeader>
+      <MessageList
+        style={{ height: "100%", marginTop: "10px", overflow: "hidden"}}
+      >
+          {messages &&
+            messages.map((message, index) => {
+              return (
+                <Message
+                  model={{
+                    message: message.text,
+                    sentTime: "",
+                    sender: message.user === me ? "Me" : message.user,
+                    direction: message.user !== me ? "incoming" : "outgoing",
+                    position: "single",
+                  }}
+                >
+                  {" "}
+                  <Avatar src={photoURL} name={getInitials()} />
+                  <Message.Footer
+                    sentTime={
+                      message.createAt &&
+                      getMessageTime(message.createAt.toDate(), index)
+                    }
+                  />
+                </Message>
+              );
+            })}
+        <InputMessage messageRef={messageRef} me={me} />
       </MessageList>
-      <MessageInput
-        placeholder="Type message here"
-        value={messageInputValue}
-        onChange={(value) => setMessageInputValue(value)}
-        onSend={(value)=>sendMessage(value)}
-      />
     </ChatContainer>
   );
 }
 
-export default Chats
+export default Chats;

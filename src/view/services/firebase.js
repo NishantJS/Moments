@@ -34,8 +34,8 @@ export const signInWithGoogle = () => {
 };
 
 
-export const useCollections = collectionName => useCollectionData(
-  firebase.firestore().collection(collectionName),{
+export const useCollections = (collectionName, query={} )=> useCollectionData(query,
+  firebase.firestore().collection(collectionName), {
     snapshotListenOptions: { includeMetadataChanges: true }
   }
 );
