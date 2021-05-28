@@ -33,6 +33,17 @@ export const signInWithGoogle = () => {
   })
 };
 
+export const signOutWithGoogle  = () => {
+  auth.signOut()
+    .then(
+      function () {
+        console.log("Signout Succesfull");
+      },
+      function (error) {
+        console.log("Signout Failed"+error);
+      }
+    );
+};
 
 export const useCollections = (collectionName, query={} )=> useCollectionData(query,
   firebase.firestore().collection(collectionName), {
