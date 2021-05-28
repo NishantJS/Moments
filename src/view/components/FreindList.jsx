@@ -6,7 +6,7 @@ const FriendList = ({ displayName, email, photoURL, handler }) => {
 
   return (
     <Conversation name={displayName} info={`@${username}`} onClick={handler}>
-      <Avatar src={photoURL} name="Nishant" status="available" />
+      <Avatar src={photoURL} name={displayName} status="available" />
     </Conversation>
   );
 }

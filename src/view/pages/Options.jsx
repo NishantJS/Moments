@@ -21,11 +21,11 @@ const Options = () => {
     const toRender = loading ? (
       <Loading />
     ) : error || !user ? (
-      <ListItem onClick={signInWithGoogle}>
+      <ListItem onClick={signInWithGoogle} button>
         <ListItemText primary="Login" />
       </ListItem>
     ) : (
-      <ListItem onClick={signOutWithGoogle}>
+      <ListItem onClick={signOutWithGoogle} button>
         <ListItemText primary="Logout" />
       </ListItem>
     );
@@ -54,4 +54,4 @@ const Options = () => {
   );
 }
 
-export default Options
+export default Options;
