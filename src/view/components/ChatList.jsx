@@ -12,7 +12,7 @@ const ChatList = ({ updateChatScreen}) => {
     <Container style={{ innerWidth: "100vw" }}>
       <Search placeholder="Search..." style={{ margin: "20px 0" }} />
       {Data.map(friend => {
-        return <FriendList {...friend} handler={()=>click(friend)}/>
+        return <FriendList {...friend} handler={() => click(friend)} key={friend.email}/>
       })}
     </Container>
   );
