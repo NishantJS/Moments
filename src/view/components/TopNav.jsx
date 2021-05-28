@@ -1,13 +1,15 @@
-import { Toolbar, AppBar, Avatar } from "@material-ui/core";
+import { Toolbar, AppBar, Typography } from "@material-ui/core";
 
 const TopNav = () => {
   return (
     <AppBar position="static" className="top_nav">
       <Toolbar>
-        <Avatar>G</Avatar>
+        <Typography variant="h6" component="h2">
+          Moments
+        </Typography>
       </Toolbar>
     </AppBar>
-  )
-}
+  );
+};
 
-export default TopNav
+export default TopNav;
