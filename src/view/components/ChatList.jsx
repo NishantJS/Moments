@@ -3,7 +3,7 @@ import FriendList from "./FreindList.jsx";
 import Container from "@material-ui/core/Container";
 import Data from "./ChatListData.json";
 
-const ChatList = ({ updateChatScreen}) => {
+const ChatList = ({ updateChatScreen }) => {
   const click = (friend) => {
     updateChatScreen(friend);
   }

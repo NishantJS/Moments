@@ -69,7 +69,6 @@ const Chats = ({ email, displayName, photoURL, updateChatScreen }) => {
         } else {
           return time;
         }
-          
       }
       else {
         return `${date.toLocaleString()}`;
@@ -116,8 +115,6 @@ const Chats = ({ email, displayName, photoURL, updateChatScreen }) => {
               </Message>
             );
           })}
-        {/* <InputMessage messageRef={messageRef} me={me} />
-        000 */}
       </MessageList>
       <MessageInput
         style={{ bottom: "0", right: "0", left: "0", width: "100%" }}

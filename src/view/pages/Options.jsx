@@ -12,7 +12,6 @@ import Theme from "@material-ui/icons/BrightnessMediumOutlined";
 import { useAuthHook } from "../services/firebase.js";
 import Loading from "../components/Loading.jsx";
 
-
 const Options = () => {
   let [isAccountOpen, setAccountOpen] = useState(false);
 
